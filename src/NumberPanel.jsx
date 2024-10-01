@@ -3,9 +3,10 @@ function NumberPanel({calculation, setCalculation, calcIndex}){
 
     const clickFunction = (event) => {
     const newCalculation = [...calculation];
-    newCalculation[calcIndex] = event.target.value;
-    setCalculation(newCalculation)}
     
+    newCalculation[calcIndex] = Number(calculation[calcIndex]) !== 0 ? calculation[calcIndex] + event.target.value : event.target.value;
+    setCalculation(newCalculation)}
+
     return(
       <div className="panel">
         <p>{calculation[calcIndex]}</p>
