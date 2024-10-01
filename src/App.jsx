@@ -1,56 +1,39 @@
 import "./App.css"
+import {useState} from 'react'
+import NumberPanel from "./NumberPanel"
+import OperationPanel from "./OperationPanel"
 
 function App() {
 
+  const[calculation, setCalculation] = useState([0,'+',0,0])
+
   return (
     <div className="calculator">
-      <div className="panel">
-        <p>0</p>
-        <div className="numbers">
-          <button>1</button>
-          <button>2</button>
-          <button>3</button>
-          <button>4</button>
-          <button>5</button>
-          <button>6</button>
-          <button>7</button>
-          <button>8</button>
-          <button>9</button>
-          <button>0</button>
-          <button>Clear</button>
-        </div>
-      </div>
-
-      <div className="panel">
-        <p>+</p>
-        <div className="numbers">
-          <button>+</button>
-          <button>-</button>
-          <button>*</button>
-          <button>÷</button>
-        </div>
-      </div>
-
-      <div className="panel">
-        <p>0</p>
-        <div className="numbers">
-          <button>1</button>
-          <button>2</button>
-          <button>3</button>
-          <button>4</button>
-          <button>5</button>
-          <button>6</button>
-          <button>7</button>
-          <button>8</button>
-          <button>9</button>
-          <button>0</button>
-          <button>Clear</button>
-        </div>
-      </div>
+      <NumberPanel calculation={calculation} setCalculation={setCalculation} calcIndex={0}/>
+      <OperationPanel calculation={calculation} setCalculation={setCalculation}/>
+      <NumberPanel calculation={calculation} setCalculation={setCalculation} calcIndex={2}/>
       <div className="panel answer">
-        <p>0</p>
+        <p>{calculation[3]}</p>
         <div>
-          <button>=</button>
+          <button
+            onClick={() => {
+              let result;
+              switch(calculation[1]){
+                case '+':
+                  result = Number(calculation[0]) + Number(calculation[2]);
+                  break;
+                case '-':
+                  result = Number(calculation[0] - calculation[2]);
+                  break;
+                case '*':
+                  result = calculation[0] * calculation[2];
+                  break;
+                case '÷':
+                  result = (calculation[0] / calculation[2]).toFixed(2);
+              }
+              setCalculation([... calculation.slice(0,3), result])
+            }
+            }>=</button>
         </div>
       </div>
     </div>
@@ -58,3 +41,5 @@ function App() {
 }
 
 export default App
+
+
